@@ -1,3 +1,4 @@
+from config_prompt import SYSTEM_PROMPT, API_URL
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from pymongo import MongoClient
@@ -106,3 +107,12 @@ def tableau_de_bord():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))
     app.run(host="0.0.0.0", port=port)
+if __name__ == "__main__":
+    # Route pour récupérer le prompt système (utilisée par Google AI Studio)
+@app.route("/config", methods=["GET"])
+def get_config():
+    return jsonify({
+        "system_prompt": SYSTEM_PROMPT,
+        "api_url": API_URL,
+        "version": "1.0"
+    })
